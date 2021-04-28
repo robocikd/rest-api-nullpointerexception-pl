@@ -16,4 +16,5 @@ public class Config {
     void customizeObjectMapper() {
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
+
 }
