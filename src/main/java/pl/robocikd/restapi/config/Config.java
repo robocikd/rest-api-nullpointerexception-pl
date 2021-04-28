@@ -11,16 +11,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class Config {
 
-    private final ObjectMapper objectMapper;
-
-    public Config(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
-
-    void customizeObjectMapper() {
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    }
-
     @Bean
     public Docket swaggerApi() {
         return new Docket(DocumentationType.SWAGGER_2)
