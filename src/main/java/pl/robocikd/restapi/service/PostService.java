@@ -9,6 +9,7 @@ import pl.robocikd.restapi.model.Post;
 import pl.robocikd.restapi.repository.CommentRepository;
 import pl.robocikd.restapi.repository.PostRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,5 +40,22 @@ public class PostService {
     private List<Comment> extractComments(List<Comment> comments, long id) {
         return comments.stream().filter(comment -> comment.getPostId() == id)
                 .collect(Collectors.toList());
+    }
+
+    public Post addPost(Post post) {
+        return postRepository.save(post);
+    }
+
+    @Transactional
+    public Post editPost(Post post) {
+        Post postEdited = postRepository.findById(post.getId()).orElseThrow();
+        postEdited.setTitle(post.getTitle());
+        postEdited.setContent(post.getContent());
+        return postEdited; //dirty checking - hibernate checks every retrieve entity. If any change happened it saves that entity - postRepository.save(postEdited)
+    }
+
+
+    public void deletePost(long id) {
+        postRepository.deleteById(id);
     }
 }
