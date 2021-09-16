@@ -1,23 +1,31 @@
 package pl.robocikd.restapi.config;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
+
 public class Config {
 
-    @Bean
-    public Docket swaggerApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .paths(PathSelectors.regex("^(?!/(error).*$).*$"))
-                .build();
-    }
+//    ApiInfo apiInfo() {
+//        return new ApiInfoBuilder()
+//                .title("RobocikD")
+//                .description("API base on nullpointerexception.pl")
+//                .license("Apache 2.0")
+//                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+//                .termsOfServiceUrl("")
+//                .version("1.0.0")
+//                .contact(new Contact("", "", "robocikd@wp.pl"))
+//                .build();
+//    }
+//
+//    @Bean
+//    public Docket swaggerApi() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .select()
+//                .paths(PathSelectors.regex("^(?!/(error).*$).*$"))
+//                .build()
+//                .apiInfo(apiInfo());
+//    }
 
 
 }
