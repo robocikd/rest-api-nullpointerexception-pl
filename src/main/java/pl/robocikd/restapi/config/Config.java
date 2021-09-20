@@ -2,6 +2,7 @@ package pl.robocikd.restapi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,13 +16,13 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.Collections;
 import java.util.List;
 
-
 @Configuration
 public class Config {
 
     @Bean
     public Docket docket() {
         return new Docket(DocumentationType.OAS_30)
+                .ignoredParameterTypes(UsernamePasswordAuthenticationToken.class)
                 .apiInfo(new ApiInfoBuilder()
                         .title("RobocikD")
                         .description("demo API based on nullpointerexception.pl")
