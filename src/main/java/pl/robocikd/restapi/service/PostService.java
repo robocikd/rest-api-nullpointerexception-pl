@@ -1,6 +1,7 @@
 package pl.robocikd.restapi.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,12 @@ public class PostService {
         return postRepository.findAllPosts(PageRequest.of(page, PAGE_SIZE, Sort.by(sort, "id")));
     }
 
+    @Cacheable(cacheNames = "SinglePost", key = "#id")
     public Post getSinglePost(long id) {
         return postRepository.findById(id).orElseThrow();
     }
 
+    @Cacheable(cacheNames = "PostsWithComments")
     public List<Post> getPostsWithComments(int page, Sort.Direction sort) {
         List<Post> allPosts = postRepository.findAllPosts(PageRequest.of(page, PAGE_SIZE, Sort.by(sort, "id")));
         List<Long> ids = allPosts.stream().map(Post::getId).collect(Collectors.toList());
