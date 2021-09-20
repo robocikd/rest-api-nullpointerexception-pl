@@ -1,6 +1,8 @@
 package pl.robocikd.restapi.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -50,6 +52,7 @@ public class PostService {
     }
 
     @Transactional
+    @CachePut(cacheNames = "SinglePost", key = "#result.id")
     public Post editPost(Post post) {
         Post postEdited = postRepository.findById(post.getId()).orElseThrow();
         postEdited.setTitle(post.getTitle());
@@ -57,8 +60,13 @@ public class PostService {
         return postEdited; //dirty checking - hibernate checks every retrieve entity. If any change happened it saves that entity - postRepository.save(postEdited)
     }
 
-
+    @CacheEvict(cacheNames = "SinglePost")
     public void deletePost(long id) {
         postRepository.deleteById(id);
+    }
+
+    // should be invoked from other been
+    @CacheEvict(cacheNames = "PostsWithComments")
+    public void clearPostsWithComments() {
     }
 }
