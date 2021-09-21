@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset RobocikD:1
+--changeset RobocikD:3
 insert into post(title, content, created)
 values ('Test post 1', 'Content 1', '2021-06-13T18:54:17.203514');
 insert into post(title, content, created)
